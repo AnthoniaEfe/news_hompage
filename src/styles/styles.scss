@@ -9,27 +9,36 @@ $Dark-grayish-blue: hsl(236, 13%, 42%);
 $Very-dark-blue: hsl(240, 100%, 5%);
 
 // font variables
-$font-size: 15px;
+$font-size: 16px;
 
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  width:100%;
 }
 
 #root {
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  text-align: left;
   font-size: $font-size;
+  font-weight: 500;
   font-family: Inter, sans-serif, system-ui;
   background-color:$Off-white;
+  color: $Dark-grayish-blue;
 }
 
 @mixin flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@mixin flex-left {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 @mixin flex-space-between {
@@ -42,29 +51,170 @@ main {
   @include flex-center;
   flex-direction: column;
   min-height: 100vh;
-  width:100%;
   gap:2.5rem;
+  padding: 1rem;
+}
+
+nav{
+  @include flex-space-between();
+  gap: 2rem;
+  width: 100%;
+  padding: 10px 5%;
+
+  #logo{width:50px}
+
+  ul{
+    list-style: none;
+    @include flex-center();
+    gap: 1rem;
+    width:40%;
+  
+    a{
+      text-decoration: none;
+      color: inherit;
+      font-size: 1.25rem;
+     
+      &:hover{color: $Soft-red;}
+    }
+  }
 }
 
 #grid-container{
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
- place-items: center;
+  place-items: center;
   margin:0 auto;
   gap:2.5rem;
 }
 
-  @media screen and (min-width:735px){
+#details-section{
+  @include flex-left;
+  flex-direction: column;
+  gap:1rem;
+
+  h1{
+    font-size: 3rem;
+    color: $Very-dark-blue;
+  }
+
+  #details-section-desc{
+    @include flex-left();
+    flex-direction: column;
+    gap: 1rem;
+  
+    #read-more-button{
+      width: auto;
+      padding: 1rem 1.25rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      background-color: $Soft-red;
+      color: $Very-dark-blue;
+      border:none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+
+      &:hover{
+        background-color: $Very-dark-blue;
+        color: $Off-white;
+      }
+    }
+  }
+}
+
+#new-section{
+  @include flex-left;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem 1rem;
+  background-color: $Very-dark-blue;
+  color: $Grayish-blue;
+
+  h2{
+    color: $Soft-orange;
+    font-size: 2.5rem;
+  }
+
+  hr{border: 1px solid $Grayish-blue;}
+
+  .new-item{
+    @include flex-left;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    h3{
+      color: $Off-white;
+      font-weight: 700;
+      font-size: 1.75rem;
+
+      &:hover{color: $Soft-orange;}
+    }
+  }
+}
+
+#trending-section{
+  @include flex-center;
+  flex-direction: column;
+  gap: 2rem;
+
+  .trending-item{
+    @include flex-space-between();
+    gap: 1rem;
+
+    .trending-item-details{
+      @include flex-space-between();
+      flex-direction: column;
+      gap:1rem;
+
+      .trending-item-number{
+        color: $Soft-red;
+        font-weight: 700;
+        font-size: 2.5rem;
+      }
+
+      h4{
+        font-size: 1.5rem;
+        color: $Very-dark-blue;
+
+        &:hover{color: $Soft-red;}
+      }
+    }
+  }
+
+}
+
+  @media screen and (min-width:768px){
   #grid-container {
     width: 90%;
-    height:auto;
+    height: auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 2rem;
-    place-content: space-between;
-    background-color: inherit;
-    padding: 0;
+  }
+
+  #desktop-image{
+    display: block;
+    grid-column: 1/span 2;
+    grid-row: 1;
+  }
+
+  #details-section{
+    @include flex-left;
+    flex-direction: row;
+    gap: 1rem;
+    grid-column: 1/span 2;
+    grid-row: 2;
+  }
+
+  #new-section{
+    grid-column: 3/span 1;
+    grid-row: 1/span 2;
+    height: 100%;
+  }
+
+  #trending-section{
+    flex-direction: row;
+    grid-column: 1/span 3;
   }
 }
