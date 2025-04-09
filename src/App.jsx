@@ -11,7 +11,7 @@ import { faBars, faX } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const navItems = ['Home', 'New', 'Popular', 'Trending', 'Categories'];
 
@@ -27,8 +27,7 @@ function App() {
   return (
     <>
     <main>
-     <nav>
-
+     <nav className='navbar'>
       <div>
         {/* Logo */}
         <img src={logo} id="logo" alt="logo"/>
@@ -43,19 +42,18 @@ function App() {
         </ul>
 
         {/* Mobile Burger Icon */}
-        <div>
-          <button onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? (<FontAwesomeIcon icon={faX} />) : ( <FontAwesomeIcon icon={faBars} />)}
-          </button>
+        <div className="navbar__burger" onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? (<FontAwesomeIcon icon={faX} size={24}/>) : ( <FontAwesomeIcon icon={faBars} size={24}/>)}
         </div>
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <ul>
+      {isOpen && (
+        <ul className={`navbar__menu ${isOpen ? 'open' : ''}`}>
           {navItems.map((item) => (
             <li
               key={item}
+              className="navbar__item"
             >
               {item}
             </li>
