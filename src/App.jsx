@@ -27,60 +27,60 @@ function App() {
   return (
     <>
     <main>
-     <nav className='navbar'>
-      <div>
+     <nav className='navbar' aria-label="Main navigation">
+      <div className='navbar__container'>
         {/* Logo */}
-        <img src={logo} id="logo" alt="logo"/>
+        <img src={logo} className="navbar__logo" alt="W. logo"/>
 
-        {/* Desktop Menu */}
-        <ul style={{display:"hidden"}}>
-          {navItems.map((item) => (
-            <li key={item}>
-              {item}
-            </li>
-          ))}
-        </ul>
-
-        {/* Mobile Burger Icon */}
-        <div className="navbar__burger" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? (<FontAwesomeIcon icon={faX} size={24}/>) : ( <FontAwesomeIcon icon={faBars} size={24}/>)}
-        </div>
+        {isMobile ? <div className="navbar__burger" onClick={() => setIsOpen(!isOpen)}  aria-controls="mobile-menu">
+              {isOpen ? (<FontAwesomeIcon icon={faX} className='menu-icon'/>) : ( <FontAwesomeIcon icon={faBars} className='menu-icon'/>)}
+              </div> : (
+              <ul className="navbar__desktop-menu" role="menubar">
+               {navItems.map((item) => (
+                <li key={item} role="menuitem">
+                  {item}
+                </li>))}
+               </ul>
+        )}
       </div>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <ul className={`navbar__menu ${isOpen ? 'open' : ''}`}>
+        <div className="navbar__mobile-menu">
+        <ul className={`navbar__mobile-list ${isOpen ? 'open' : ''}`}>
           {navItems.map((item) => (
             <li
               key={item}
-              className="navbar__item"
+              className="navbar__mobile-item"
+              role="menuitem"
             >
               {item}
             </li>
           ))}
         </ul>
+        </div>
       )}
      </nav> 
 
-     <div id="grid-container">
+     <div id="grid-container" role="region" aria-label="Main content grid">
            {isMobile ? (
           <img src={web3mobile} alt="Mobile image" id="mobile-image"/>
         ) : (
           <img src={web3desktop} alt="Desktop image" id="desktop-image"/>
         )}
     
-       <div id="details-section">
-        <h1>The Bright Future of Web 3.0?</h1>
+       <section id="details-section" aria-labelledby="details-heading">
+        <h1 id="details-heading">The Bright Future of Web 3.0?</h1>
         <div id="details-section-desc">
           <p> We dive into the next evolution of the web that claims to put the power 
             of the platforms back into the hands of the people. But is it really fulfilling its promise?
           </p>
-          <button id="read-more-button">Read more</button>
+          <button id="read-more-button" aria-label="Read more about Web 3.0">Read more</button>
         </div>
-      </div>
+      </section>
 
-      <div id="new-section">
-        <h2>New</h2>
+      <aside id="new-section" aria-labelledby="new-heading">
+        <h2 id="new-heading">New</h2>
         <div className="new-item">
           <h3>Hydrogen VS Electric Cars</h3>
           <p>Will hydrogen-fueled cars ever catch up to EVs? </p>
@@ -95,9 +95,9 @@ function App() {
           <h3> Is VC Funding Drying Up?</h3>
           <p> Private funding by VC firms is down 50% YOY. We take a look at what that means.</p>
         </div>
-      </div>
+      </aside>
 
-      <div id="trending-section">
+      <section id="trending-section"  aria-labelledby="trending-heading">
         <div className="trending-item">
           <img src={retropcs} alt="retro pcs image"/>
           <div className="trending-item-details">   
@@ -124,7 +124,7 @@ function App() {
             <p>How the pandemic has sparked fresh opportunities.</p>
           </div>
         </div>
-      </div>
+      </section>
     </div> 
     </main>
     </>

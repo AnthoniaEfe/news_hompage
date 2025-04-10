@@ -9,7 +9,7 @@ $Dark-grayish-blue: hsl(236, 13%, 42%);
 $Very-dark-blue: hsl(240, 100%, 5%);
 
 // font variables
-$font-size: 16px;
+$font-size: 1.25rem;
 
 *{
   margin: 0;
@@ -47,6 +47,13 @@ $font-size: 16px;
   align-items: center;
 }
 
+@mixin flex-space-around{
+  display: flex;       
+  justify-content: space-around; 
+  align-items: flex-start; 
+  height:100%;
+}
+
 main {
   @include flex-center;
   flex-direction: column;
@@ -55,82 +62,86 @@ main {
   padding: 1rem;
 }
 
-nav{
-  @include flex-space-between();
-  flex-direction: row;
-  padding: 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  gap: 2rem;
-  width: 100%;
-  padding: 10px 5%;
+.navbar {
+  @include flex-center();
 
-  #logo{width:50px}
+  &__container {
+    @include flex-space-between();
+    padding: 1rem;
+    gap: 1rem;
+    max-width: 1200px;
+  }
+  
+  &__logo {
+    width: 40px;
+  }
+
+  .menu-icon{
+    font-size: 30px;
+    color:$Very-dark-blue;
+  }
 
   &__burger {
     display: block;
     cursor: pointer;
+    width: fit-content;
+    z-index: 2;
 
     @media (min-width: 768px) {
       display: none;
     }
   }
 
-
-  &__menu {
-    display: none;
-    flex-direction: row;
-    justify-content: center;
-    list-style: none;
-    gap: 1.5rem;
-    padding: 1rem 0;
-
-    @media (min-width: 768px) {
-      display: flex;
-    }
+  &__mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 100%;
+    transform: translateX(-100%);
+    width: 70%;
+    height: 100%;
+    padding-top: 15%;
+    background: white;
+    z-index: 0;
+    transition: left 3s ease-in-out;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
 
     &.open {
-      display: flex;
-      flex-direction: row;
-      position: absolute;
-      top: 64px;
       left: 0;
-      right: 0;
-      background: #ffffff;
-      border-top: 1px solid #eee;
+    }
 
-      @media (min-width: 768px) {
-        position: static;
-        border-top: none;
-      }
+    @media (min-width: 768px) {
+      display: none;
     }
   }
 
-  &__item {
+  &__mobile-list {
+    list-style: none;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__mobile-item {
+    font-size: 1.5rem;
+    font-weight: 600;
     cursor: pointer;
-    font-weight: 500;
-    transition: color 0.3s ease;
 
     &:hover {
-      color: #007bff;
+      color: $Soft-red;
+      transition: color 0.3s ease-in-out;
     }
   }
 
-  // ul{
-  //   list-style: none;
-  //   @include flex-center();
-  //   gap: 1rem;
-  //   width:40%;
-  
-  //   a{
-  //     text-decoration: none;
-  //     color: inherit;
-  //     font-size: 1.25rem;
-     
-  //     &:hover{color: $Soft-red;}
-  //   }
-  // }
+  &__desktop-menu{
+    @include flex-space-between();
+    gap: 1rem;
+    list-style: none;
+    width: 40%;
+
+  }
 }
+
 
 #grid-container{
   display: grid;
@@ -144,17 +155,23 @@ nav{
 #details-section{
   @include flex-left;
   flex-direction: column;
-  gap:1rem;
+  gap:2rem;
+  padding: 1rem;
+  height: 100%;
 
   h1{
     font-size: 3rem;
     color: $Very-dark-blue;
   }
 
-  #details-section-desc{
-    @include flex-left();
+  &-desc{
+    @include flex-space-around();
     flex-direction: column;
     gap: 1rem;
+
+    p{
+      font-size: 1.5rem;
+    }
   
     #read-more-button{
       width: auto;
@@ -170,6 +187,7 @@ nav{
       &:hover{
         background-color: $Very-dark-blue;
         color: $Off-white;
+        transition: color 0.3s ease-in-out;
       }
     }
   }
@@ -200,7 +218,10 @@ nav{
       font-weight: 700;
       font-size: 1.75rem;
 
-      &:hover{color: $Soft-orange;}
+      &:hover{
+        color: $Soft-orange;
+        transition: color 0.3s ease-in-out;
+      }
     }
   }
 }
@@ -211,8 +232,13 @@ nav{
   gap: 2rem;
 
   .trending-item{
-    @include flex-space-between();
+    @include flex-center();
     gap: 1rem;
+
+    img{
+      height: auto;
+      max-height: 200px;
+    }
 
     .trending-item-details{
       @include flex-space-between();
@@ -229,7 +255,10 @@ nav{
         font-size: 1.5rem;
         color: $Very-dark-blue;
 
-        &:hover{color: $Soft-red;}
+        &:hover{
+          color: $Soft-red;
+          transition: color 0.3s ease-in-out;
+        }
       }
     }
   }
@@ -258,6 +287,11 @@ nav{
     gap: 1rem;
     grid-column: 1/span 2;
     grid-row: 2;
+
+    h1{ 
+      font-size: 4.5rem;
+      margin: auto 0;
+    }
   }
 
   #new-section{
